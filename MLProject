@@ -1,0 +1,25 @@
+name: HelloWorld
+
+conda_env: conda.yml
+# Can have a docker_env instead of a conda_env, e.g.
+# docker_env:
+#    image:  mlflow-docker-example
+
+entry_points:
+  taking_input:
+    parameters:
+      input_path: {type:str, default: in-vehicle-coupon-recommendation.csv}
+    command: "python taking_input.py {input_path}"
+  step1:
+    parameters:
+      file_path: file_path_uri
+    command: "python step1.py {file_path}"
+  step2:
+    parameters:
+      data_path: C:\Users\saksh\OneDrive\Sakshi Onedrive\Projects 2022\20220502_Mlflow2\Hello_World.py
+    command: "python step2.py --data-path {data_path}"
+  main:
+    parameters:
+      input_path: {type:str, default: in-vehicle-coupon-recommendation.csv}
+    command: "python main.py {input_path}"
+  

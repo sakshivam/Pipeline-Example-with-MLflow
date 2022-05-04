@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/saksh/OneDrive/Sakshi%20Onedrive/Projects%202022/20220502_Mlflow2/mlruns/0/b17ce882c1544ef3b3f76c3fbb5e71e5/artifacts
+end_time: 1651591670592
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: b17ce882c1544ef3b3f76c3fbb5e71e5
+run_uuid: b17ce882c1544ef3b3f76c3fbb5e71e5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1651591663584
+status: 3
+tags: []
+user_id: saksh
