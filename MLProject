@@ -12,12 +12,8 @@ entry_points:
     command: "python taking_input.py {input_path}"
   step1:
     parameters:
-      file_path: file_path_uri
+      file_path: {type:str, default: in-vehicle-coupon-recommendation.csv}
     command: "python step1.py {file_path}"
-  step2:
-    parameters:
-      data_path: data_path_uri
-    command: "python step2.py --data-path {data_path}"
   main:
     parameters:
       input_path: {type:str, default: in-vehicle-coupon-recommendation.csv}
