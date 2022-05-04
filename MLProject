@@ -1,4 +1,4 @@
-name: HelloWorld
+name: MLFlow_Pipeline_Example
 
 conda_env: conda.yml
 # Can have a docker_env instead of a conda_env, e.g.
@@ -16,7 +16,7 @@ entry_points:
     command: "python step1.py {file_path}"
   step2:
     parameters:
-      data_path: C:\Users\saksh\OneDrive\Sakshi Onedrive\Projects 2022\20220502_Mlflow2\Hello_World.py
+      data_path: data_path_uri
     command: "python step2.py --data-path {data_path}"
   main:
     parameters:
