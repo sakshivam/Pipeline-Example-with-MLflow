@@ -11,3 +11,5 @@ dependencies:
  - pip:
    - scipy==1.5.4
    - mlflow==1.25.1
+   - fastparquet==0.8.1
+   - pyarrow==8.0.0
