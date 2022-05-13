@@ -13,3 +13,4 @@ dependencies:
    - mlflow==1.25.1
    - fastparquet==0.8.1
    - pyarrow==8.0.0
+   - Sphinx==4.5.0
