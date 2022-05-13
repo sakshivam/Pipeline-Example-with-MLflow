@@ -3,12 +3,14 @@ import os
 import yaml
 from src.utils.cleaning_utils import Fill_missing_Val_Columns, Drop_Missing_Val_Columns
 
+
 with open('.\\src\\utils\\config.yml') as file:
     try:
         config = yaml.safe_load(file)   
         print('config read | Completed')
     except yaml.YAMLError as exc:
         print('config read | Error')
+
 
 current_path = os.getcwd()
 # dirname, filename = os.path.split(current_path)

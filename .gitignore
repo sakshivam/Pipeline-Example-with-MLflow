@@ -1,4 +1,5 @@
-mlruns
+mlruns/
 in-vehicle-coupon-recommendation.csv
-.vscode
-files
+.vscode/
+files/
+docs/
