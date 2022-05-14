@@ -11,6 +11,7 @@ def task():
     print('Input Path', input_path)
     df = pd.read_csv(input_path)
     print('Dataframe', df.shape)
+    
     print("Step1 executed successfully")
 
 if __name__ == '__main__':
