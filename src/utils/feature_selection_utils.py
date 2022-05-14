@@ -13,11 +13,15 @@ def spearman_corr(df, dep_col):
     """This function is used to find the spearman correlation of columns to be selected as features.
 
     param df: dataset as dataframe
+
     type df: pandas dataframe
+
     param dep_col: dependent column name i.e output
+
     type dep_col: string
 
     return: spearman coefficient for all columns.
+
     rtype: pandas series
     """
     spear_coef = df.corr(method="spearman")[dep_col]
@@ -27,11 +31,15 @@ def convert_result_series_to_df(ser, colname_list):
     """This function is used to convert series to a pandas dataframe.
 
     param ser: series to be converted.
+
     type ser: pandas series
+
     param colname_list:list of column names for dataframe
+
     type colname_list: list
 
     return: resultant dataframe
+
     rtype: pandas dataframe
     """
 
@@ -43,11 +51,15 @@ def chisquare_test(df, dep_col):
     """This function is used to chi-square values for the input dataframe for all of its columns.
 
     param df: dataset as dataframe
+
     type df: pandas dataframe
+
     param dep_col: dependent column name i.e output
+
     type dep_col: string
 
     return: chi-square values for all columns.
+
     rtype: pandas series
     """
 
@@ -68,9 +80,11 @@ def convert_list_to_series(lst):
     """This function is used to convert list to a pandas series.
 
     param lst: list to be converted.
+
     type lst: list
 
     return: resultant series
+
     rtype: pandas series
     """
     series = pd.Series( v for v in lst )
@@ -80,11 +94,15 @@ def col_list_with_1_class(df, num_list):
     """This function is used to find column list which have only one class.
 
     param df: dataset as dataframe
+
     type df: pandas dataframe
+
     param num_list: list of numerical columns
+
     type num_list: list
 
     return: column list which are to be dropped.
+
     rtype: list
     """
 
@@ -98,11 +116,15 @@ def mutualinfo_values(xtrain, ytrain):
     """This function is used to find mutual info values for the given xtrain, ytrain.
 
     param xtrain: splitted train dataset without dependent column in the form of dataframe
+
     type xtrain: pandas dataframe
+
     param ytrain: dependent column of dataframe i.e output
+
     type ytrain: pandas dataframe
 
     return: mutual info values as series.
+
     rtype: pandas series.
     """
 
@@ -116,11 +138,15 @@ def woe_iv_values(xtrain, ytrain):
     """This function is used to find woe-iv values for the given xtrain, ytrain.
 
     param xtrain: splitted train dataset without dependent column in the form of dataframe
+
     type xtrain: pandas dataframe
+
     param ytrain: dependent column of dataframe i.e output
+
     type ytrain: pandas dataframe
 
     return: woe-iv values as series.
+
     rtype: pandas series.
     """
 
@@ -143,10 +169,12 @@ def woe_iv_values(xtrain, ytrain):
 def Analysis_Report(list_of_df):
     """This function is used to find merged dataframe for the given list of dataframes.
 
-    param list_of_df: list of dataframes to me merged.
+    param list_of_df: list of dataframes to be merged.
+
     type list_of_df: list
 
     return: merged dataframe.
+
     rtype: pandas dataframe.
     """
 
@@ -157,13 +185,19 @@ def selectkbest_features_mutual_classif(xtrain, ytrain, K):
     """This function is used to find k best features using mutual info classifier for the given xtrain, ytrain.
 
     param xtrain: splitted train dataset without dependent column in the form of dataframe
+
     type xtrain: pandas dataframe
+
     param ytrain: dependent column of dataframe i.e output
+
     type ytrain: pandas dataframe
+
     param K: no. of features to be selected.
+
     type K: int
 
     return: list of k best features
+
     rtype: list
     """
 
@@ -177,15 +211,23 @@ def modelling_data_linReg_n_Feature_selection(xtrain, ytrain, k_features, forwar
     using forward/backward algo.
 
     param xtrain: splitted train dataset without dependent column in the form of dataframe
+
     type xtrain: pandas dataframe
+
     param ytrain: dependent column of dataframe i.e output
+
     type ytrain: pandas dataframe
+
     param k_features: no. of features to be selected.
+
     type k_features: int
+
     param forward: True for forward algo/False for backward algo
+
     type forward: boolean
 
     return: list of k best features
+
     rtype: list
     """
 
@@ -200,12 +242,19 @@ def modelling_data_logReg_n_Feature_selection(xtrain, ytrain, k_features, forwar
     using forward/backward algo.
 
     param xtrain: splitted train dataset without dependent column in the form of dataframe
+
     type xtrain: pandas dataframe
+
     param ytrain: dependent column of dataframe i.e output
+
     type ytrain: pandas dataframe
+
     param k_features: no. of features to be selected.
+
     type k_features: int
+
     param forward: True for forward algo/False for backward algo
+
     type forward: boolean
 
     return: list of k best features
@@ -222,13 +271,19 @@ def splitdf_into_Xtrain_n_Ytrain(df, dep_col):
     """This function is used to split dataframe as independent and dependent dataframes.
 
     param df: dataset as dataframe
+
     type df: pandas dataframe
+
     param dep_col: dependent column name i.e output
+
     type dep_col: string
 
     return: xtrain i.e independent columns of the input dataframe
+
     rtype: pandas dataframe
+
     return: ytrain i.e dependent column of the input dataframe
+    
     rtype: pandas dataframe
     """
     

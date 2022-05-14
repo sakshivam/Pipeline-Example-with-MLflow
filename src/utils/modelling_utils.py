@@ -16,13 +16,19 @@ def test_train_split(df, frac_train):
     """This function is used to split dataframe as train and test dataframes.
 
     param df: dataset as dataframe
+
     type df: pandas dataframe
+
     param frac_train: fraction of which input dataframe is splitted as train dataframe
+
     type frac_train: float
 
     return: train_df i.e train dataframe from input dataframe
+
     rtype: pandas dataframe
+
     return: test_df i.e test dataframe from input dataframe
+
     rtype: pandas dataframe
     """
     
@@ -35,13 +41,19 @@ def split_into_XnY(df, dep_col):
     """This function is used to split dataframe as independent and dependent dataframes.
 
     param df: dataset as dataframe
+
     type df: pandas dataframe
+
     param dep_col: dependent column name i.e output
+
     type dep_col: string
 
     return: xtrain i.e independent columns of the input dataframe
+
     rtype: pandas dataframe
+
     return: ytrain i.e dependent column of the input dataframe
+
     rtype: pandas dataframe
     """
 
@@ -53,12 +65,19 @@ def statsmodel_logit(xtrain, ytrain, xvalidation, yvalidation):
     """This function is used to build model using statsmodel for the given xtrain, ytrain 
 
     param xtrain: train dataset without dependent column in the form of dataframe
+
     type xtrain: pandas dataframe
+
     param ytrain: dependent column of dataframe i.e output
+
     type ytrain: pandas dataframe
+
     param xvalidation: validation dataset without dependent column in the form of dataframe
+
     type xvalidation: pandas dataframe
+
     param yvalidation: dependent column of validation dataset i.e output
+
     type yvalidation: pandas dataframe
 
     return: logit_model
@@ -76,15 +95,23 @@ def model_logit_sklearn(xtrain, ytrain, xvalidation, yvalidation):
     """This function is used to build model using sklearn logit model for the given xtrain, ytrain 
 
     param xtrain: train dataset without dependent column in the form of dataframe
+
     type xtrain: pandas dataframe
+
     param ytrain: dependent column of dataframe i.e output
+
     type ytrain: pandas dataframe
+
     param xvalidation: validation dataset without dependent column in the form of dataframe
+
     type xvalidation: pandas dataframe
+
     param yvalidation: dependent column of validation dataset i.e output
+
     type yvalidation: pandas dataframe
 
     return: logit_model
+
     rtype: pickle
     """
 
@@ -97,13 +124,19 @@ def balancing_data_with_SMOTE(xtrain, ytrain):
     """This function is used to balance data using SMOTE for the given xtrain, ytrain 
 
     param xtrain: train dataset without dependent column in the form of dataframe
+
     type xtrain: pandas dataframe
+
     param ytrain: dependent column of dataframe i.e output
+
     type ytrain: pandas dataframe
     
     return: balanced xtrain 
+
     rtype: pandas dataframe
+
     return: balanced ytrain
+
     rtype: pandas dataframe             
     """
 
@@ -118,11 +151,15 @@ def GridSearchCV_forBestParams(xtrain, ytrain):
     """This function is used to find best hyperparameters using Grid Search CV for the given xtrain, ytrain 
 
     param xtrain: train dataset without dependent column in the form of dataframe
+
     type xtrain: pandas dataframe
+
     param ytrain: dependent column of dataframe i.e output
+
     type ytrain: pandas dataframe
     
     return: best_params in the form dictionary
+
     rtype: dict          
     """
 
@@ -151,15 +188,23 @@ def lgbm_model(xtrain, ytrain,xvalidation, yvalidation ):
     """This function is used to build model using lgbm model for the given xtrain, ytrain 
 
     param xtrain: train dataset without dependent column in the form of dataframe
+
     type xtrain: pandas dataframe
+
     param ytrain: dependent column of dataframe i.e output
+
     type ytrain: pandas dataframe
+
     param xvalidation: validation dataset without dependent column in the form of dataframe
+
     type xvalidation: pandas dataframe
+
     param yvalidation: dependent column of validation dataset i.e output
+
     type yvalidation: pandas dataframe
 
     return: lgbm_model as gbm 
+    
     rtype: pickle
     """
 

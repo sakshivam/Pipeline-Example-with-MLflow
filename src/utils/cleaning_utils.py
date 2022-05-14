@@ -4,10 +4,12 @@ import os
 def Columns_to_drop(df):
     """This function is used to find the column names having percent of missing data greater tha 95 %.
     
-    param df: dataset whose columns with missing data > 95% to be dropped. 
+    param df: dataset whose columns with missing data > 95% to be dropped.
+
     type df: pandas dataframe
 
-    return: list of columns 
+    return: list of columns
+
     rtype: list
     """
     null_count = df.isna().sum()
@@ -19,9 +21,11 @@ def Missing_Val_Columns_to_fill(df):
     """This function is used to find the column names having missing data percentage is between 0 and 95%.    
 
     param df: dataset whose columns with missing data between 0 and 95% to be filled with some values.
+
     type df: pandas dataframe
 
     return: list of columns 
+
     rtype: list
     """
 
@@ -34,11 +38,15 @@ def Drop_Missing_Val_Columns(df, col_list_to_drop):
     """This function is used to drop the column names which are provided as parameters.   
 
     param df: dataset in which required columns are to be dropped.
+
     type df: pandas dataframe
+
     param col_list_to_drop: list of columns to drop
+
     type col_list_to_drop : list
 
     return: new dataset after removing required columns.
+
     rtype: pandas dataframe
     """
 
@@ -50,11 +58,15 @@ def Fill_missing_Val_Columns(df, col_list_to_fill):
     with most frequent value in that column.   
 
     param df: dataset in which required columns are to be filled.
+
     type df: pandas dataframe
+
     param col_list_to_fill: list of columns to fill
+
     type col_list_to_fill : list
 
     return: new dataset after removing required columns.
+    
     rtype: pandas dataframe
     """
     

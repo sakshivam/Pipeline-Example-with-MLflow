@@ -2,4 +2,5 @@ mlruns/
 in-vehicle-coupon-recommendation.csv
 .vscode/
 files/
-docs/
+*.pyc
+*/build/
