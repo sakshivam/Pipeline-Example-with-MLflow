@@ -1,11 +1,10 @@
 import pandas as pd
-import os
-import pickle
-from joblib import dump, load
-from sklearn.metrics import accuracy_score
+from joblib import load
+
 
 def Drop_Missing_Val_Columns(df, col_list_to_drop):
-    """This function is used to drop the column names which are provided as parameters.   
+    """This function is used to drop the column names which are
+    provided as parameters.
 
     param df: dataset in which required columns are to be dropped.
 
@@ -23,9 +22,11 @@ def Drop_Missing_Val_Columns(df, col_list_to_drop):
     df.drop(columns=col_list_to_drop, inplace=True)
     return df
 
+
 def Fill_missing_Val_Columns(df, col_list_to_fill):
-    """This function is used to fill the column names which are provided as parameters 
-    with most frequent value in that column.   
+    """This function is used to fill the column names which are provided
+     as parameters
+    with most frequent value in that column.
 
     param df: dataset in which required columns are to be filled.
 
@@ -42,17 +43,20 @@ def Fill_missing_Val_Columns(df, col_list_to_fill):
 
     for i in col_list_to_fill:
         df[i] = df[i].fillna(df[i].value_counts().index[0])
-            #print(df[i].isna().sum())
+        # print(df[i].isna().sum())
     return df
 
+
 def replace_values_using_dict(df, dict_to_replace_values):
-    """This function is used to replace the column values with values provided in the dictionary as key value pairs.   
+    """This function is used to replace the column values with values provided
+     in the dictionary as key value pairs.
 
     param df: dataset in which required columns are to be filled.
 
     type df: pandas dataframe
 
-    param dict_to_replace_values: dictionary with key value pairs- which value is to be replaced by whom.
+    param dict_to_replace_values: dictionary with key value pairs- which value
+     is to be replaced by whom.
 
     type dict_to_replace_values : dict
 
@@ -64,8 +68,10 @@ def replace_values_using_dict(df, dict_to_replace_values):
     df = df.replace(dict_to_replace_values)
     return df
 
+
 def split_into_XnY(df, dep_col):
-    """This function is used to split dataframe as independent and dependent dataframes.
+    """This function is used to split dataframe as independent and
+    dependent dataframes.
 
     param df: dataset as dataframe
 
@@ -88,8 +94,9 @@ def split_into_XnY(df, dep_col):
     Xtrain = df.drop([dep_col], axis=1)
     return Xtrain, Ytrain
 
+
 def predictions(testdf, dep_col, features, model_file_path):
-    """This function is used to predict the output or dependent feature using model 
+    """This function is used to predict the output or dependent feature using model
 
     param testdf: test dataset in the form of dataframe.
 
@@ -108,7 +115,7 @@ def predictions(testdf, dep_col, features, model_file_path):
     type model_file_path: path string
 
     return: resultant dataset
-    
+
     rtype: pandas dataframe
     """
 
@@ -118,6 +125,5 @@ def predictions(testdf, dep_col, features, model_file_path):
     y_pred = mdl.predict(Xtest_tenfeat)
     y_pred_df = pd.DataFrame(y_pred)
     y_pred_df.columns = ['Y_Predicted']
-    merged_df = pd.concat([Xtest,y_pred_df], axis=1)
+    merged_df = pd.concat([Xtest, y_pred_df], axis=1)
     return merged_df
-

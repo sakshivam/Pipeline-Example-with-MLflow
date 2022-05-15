@@ -1,16 +1,16 @@
 import pandas as pd
-import os
 import numpy as np
 from sklearn.feature_selection import chi2
-import numpy as np
 from sklearn.feature_selection import mutual_info_classif
 from sklearn.feature_selection import SelectKBest
 from mlxtend.feature_selection import SequentialFeatureSelector as sfs
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import LogisticRegression
 
+
 def spearman_corr(df, dep_col):
-    """This function is used to find the spearman correlation of columns to be selected as features.
+    """This function is used to find the spearman correlation of columns
+    to be selected as features.
 
     param df: dataset as dataframe
 
@@ -26,6 +26,7 @@ def spearman_corr(df, dep_col):
     """
     spear_coef = df.corr(method="spearman")[dep_col]
     return spear_coef
+
 
 def convert_result_series_to_df(ser, colname_list):
     """This function is used to convert series to a pandas dataframe.
@@ -43,12 +44,14 @@ def convert_result_series_to_df(ser, colname_list):
     rtype: pandas dataframe
     """
 
-    res_df=pd.DataFrame(ser)
+    res_df = pd.DataFrame(ser)
     res_df.columns = colname_list
     return res_df
 
+
 def chisquare_test(df, dep_col):
-    """This function is used to chi-square values for the input dataframe for all of its columns.
+    """This function is used to chi-square values for the input dataframe
+    for all of its columns.
 
     param df: dataset as dataframe
 
@@ -66,15 +69,16 @@ def chisquare_test(df, dep_col):
     list_chi_score = []
     list_col_names = []
     for i in df.columns:
-        X = np.array(df[i]).reshape(-1,1)
+        X = np.array(df[i]).reshape(-1, 1)
         y = df[dep_col]
-        chi_scores = chi2(X,y)
+        chi_scores = chi2(X, y)
         list_chi_score.append(chi_scores[1][0])
-        chi_score_series = pd.Series( v for v in list_chi_score )
+        chi_score_series = pd.Series(v for v in list_chi_score)
         list_col_names.append(i)
         chi_score_series.index = list_col_names
         chi_score_series.sort_values(ascending=False)
     return chi_score_series
+
 
 def convert_list_to_series(lst):
     """This function is used to convert list to a pandas series.
@@ -87,8 +91,9 @@ def convert_list_to_series(lst):
 
     rtype: pandas series
     """
-    series = pd.Series( v for v in lst )
+    series = pd.Series(v for v in lst)
     return series
+
 
 def col_list_with_1_class(df, num_list):
     """This function is used to find column list which have only one class.
@@ -108,14 +113,17 @@ def col_list_with_1_class(df, num_list):
 
     col_list_to_drop = []
     for i in num_list:
-        if len(df[i].value_counts()) ==1:
+        if len(df[i].value_counts()) == 1:
             col_list_to_drop.append(i)
     return col_list_to_drop
 
-def mutualinfo_values(xtrain, ytrain):
-    """This function is used to find mutual info values for the given xtrain, ytrain.
 
-    param xtrain: splitted train dataset without dependent column in the form of dataframe
+def mutualinfo_values(xtrain, ytrain):
+    """This function is used to find mutual info values for the given xtrain,
+     ytrain.
+
+    param xtrain: splitted train dataset without dependent column in the form
+    of dataframe
 
     type xtrain: pandas dataframe
 
@@ -134,10 +142,13 @@ def mutualinfo_values(xtrain, ytrain):
     mutual_info.sort_values(ascending=False)
     return mutual_info
 
-def woe_iv_values(xtrain, ytrain):
-    """This function is used to find woe-iv values for the given xtrain, ytrain.
 
-    param xtrain: splitted train dataset without dependent column in the form of dataframe
+def woe_iv_values(xtrain, ytrain):
+    """This function is used to find woe-iv values for the given xtrain,
+     ytrain.
+
+    param xtrain: splitted train dataset without dependent column in the form
+    of dataframe
 
     type xtrain: pandas dataframe
 
@@ -150,24 +161,25 @@ def woe_iv_values(xtrain, ytrain):
     rtype: pandas series.
     """
 
-    woe_iv_sum_list =[]
-    col_list= []
+    woe_iv_sum_list = []
+    col_list = []
     for i in xtrain.columns:
-        df_woe_iv = (pd.crosstab(xtrain[i],ytrain,
-                        normalize='columns')
-                .assign(woe=lambda dfx: np.log(dfx[1] / dfx[0]))
-                .assign(iv=lambda dfx: np.sum(dfx['woe']*
-                                            (dfx[1]-dfx[0]))))
-        #print(df_woe_iv)
+        df_woe_iv = (pd.crosstab(xtrain[i], ytrain, normalize='columns')
+                     .assign(woe=lambda dfx: np.log(dfx[1] / dfx[0]))
+                     .assign(iv=lambda dfx: np
+                     .sum(dfx['woe'] * (dfx[1] - dfx[0]))))
+        # print(df_woe_iv)
         woe_iv_sum_list.append(df_woe_iv.iv.sum())
-        woe_iv_sum_series = pd.Series( v for v in woe_iv_sum_list )
+        woe_iv_sum_series = pd.Series(v for v in woe_iv_sum_list)
         col_list.append(i)
         woe_iv_sum_series.index = col_list
         woe_iv_sum_series.sort_values(ascending=False)
     return woe_iv_sum_series
 
+
 def Analysis_Report(list_of_df):
-    """This function is used to find merged dataframe for the given list of dataframes.
+    """This function is used to find merged dataframe for the given
+    list of dataframes.
 
     param list_of_df: list of dataframes to be merged.
 
@@ -181,10 +193,13 @@ def Analysis_Report(list_of_df):
     merged_df = pd.concat((list_of_df), axis=1)
     return merged_df
 
-def selectkbest_features_mutual_classif(xtrain, ytrain, K):
-    """This function is used to find k best features using mutual info classifier for the given xtrain, ytrain.
 
-    param xtrain: splitted train dataset without dependent column in the form of dataframe
+def selectkbest_features_mutual_classif(xtrain, ytrain, K):
+    """This function is used to find k best features using mutual info classifier
+     for the given xtrain, ytrain.
+
+    param xtrain: splitted train dataset without dependent column in the form
+    of dataframe
 
     type xtrain: pandas dataframe
 
@@ -206,11 +221,13 @@ def selectkbest_features_mutual_classif(xtrain, ytrain, K):
     five_best_features = list(xtrain.columns[sel_five_cols.get_support()])
     return five_best_features
 
-def modelling_data_linReg_n_Feature_selection(xtrain, ytrain, k_features, forward):
-    """This function is used to find k best features using linear regresser for the given xtrain, ytrain 
-    using forward/backward algo.
 
-    param xtrain: splitted train dataset without dependent column in the form of dataframe
+def modelling_data_linReg_n_Feature_selection(xtrain, ytrain, k_feat, forward):
+    """This function is used to find k best features using linear regresser
+    for the given xtrain, ytrain using forward/backward algo.
+
+    param xtrain: splitted train dataset without dependent column in the form
+    of dataframe
 
     type xtrain: pandas dataframe
 
@@ -218,9 +235,9 @@ def modelling_data_linReg_n_Feature_selection(xtrain, ytrain, k_features, forwar
 
     type ytrain: pandas dataframe
 
-    param k_features: no. of features to be selected.
+    param k_feat: no. of features to be selected.
 
-    type k_features: int
+    type k_feat: int
 
     param forward: True for forward algo/False for backward algo
 
@@ -232,16 +249,19 @@ def modelling_data_linReg_n_Feature_selection(xtrain, ytrain, k_features, forwar
     """
 
     log_reg = LogisticRegression()
-    sfs_logReg = sfs(log_reg, k_features=10, forward=forward, verbose=2, scoring='neg_mean_squared_error')
+    sfs_logReg = sfs(log_reg, k_features=10, forward=forward, verbose=2,
+                     scoring='neg_mean_squared_error')
     sfs_logReg = sfs_logReg.fit(xtrain, ytrain)
     feat_names = list(sfs_logReg.k_feature_names_)
     return feat_names
 
-def modelling_data_logReg_n_Feature_selection(xtrain, ytrain, k_features, forward):
-    """This function is used to find k best features using logistic regresser for the given xtrain, ytrain 
-    using forward/backward algo.
 
-    param xtrain: splitted train dataset without dependent column in the form of dataframe
+def modelling_data_logReg_n_Feature_selection(xtrain, ytrain, k_feat, forward):
+    """This function is used to find k best features using logistic regresser
+    for the given xtrain, ytrain using forward/backward algo.
+
+    param xtrain: splitted train dataset without dependent column in the form
+    of dataframe
 
     type xtrain: pandas dataframe
 
@@ -249,9 +269,9 @@ def modelling_data_logReg_n_Feature_selection(xtrain, ytrain, k_features, forwar
 
     type ytrain: pandas dataframe
 
-    param k_features: no. of features to be selected.
+    param k_feat: no. of features to be selected.
 
-    type k_features: int
+    type k_feat: int
 
     param forward: True for forward algo/False for backward algo
 
@@ -260,15 +280,18 @@ def modelling_data_logReg_n_Feature_selection(xtrain, ytrain, k_features, forwar
     return: list of k best features
     rtype: list
     """
-    ##Finding Best features using Backward Algorithm with Linear Regression 
+    # Finding Best features using Backward Algorithm with Linear Regression
     lin_reg = LinearRegression()
-    sfs_linReg = sfs(lin_reg, k_features=10, forward=forward, verbose=2, scoring='neg_mean_squared_error')
+    sfs_linReg = sfs(lin_reg, k_features=10, forward=forward, verbose=2,
+                     scoring='neg_mean_squared_error')
     sfs_linReg = sfs_linReg.fit(xtrain, ytrain)
     feat_names = list(sfs_linReg.k_feature_names_)
     return feat_names
 
+
 def splitdf_into_Xtrain_n_Ytrain(df, dep_col):
-    """This function is used to split dataframe as independent and dependent dataframes.
+    """This function is used to split dataframe as independent and dependent
+     dataframes.
 
     param df: dataset as dataframe
 
@@ -283,10 +306,10 @@ def splitdf_into_Xtrain_n_Ytrain(df, dep_col):
     rtype: pandas dataframe
 
     return: ytrain i.e dependent column of the input dataframe
-    
+
     rtype: pandas dataframe
     """
-    
+
     Ytrain = df[dep_col]
     Xtrain = df.drop([dep_col], axis=1)
     return Xtrain, Ytrain
