@@ -2,8 +2,13 @@ import pandas as pd
 import os
 from joblib import dump
 import yaml
-from src.utils.modelling_utils import test_train_split
-from src.utils.modelling_utils import split_into_XnY, model_logit_sklearn
+from src.utils.modelling_utils import (test_train_split,
+                                       split_into_XnY,
+                                       model_logit_sklearn)
+from dotenv import load_dotenv
+
+load_dotenv()
+
 with open('.\\src\\utils\\config.yml') as file:
     try:
         config = yaml.safe_load(file)
@@ -11,12 +16,14 @@ with open('.\\src\\utils\\config.yml') as file:
     except yaml.YAMLError:
         print('config read | Error')
 
-current_path = os.getcwd()
+# current_path = os.getcwd()
 # dirname, filename = os.path.split(current_path)
-data_dir = os.path.join(current_path, 'files')
-train_fengg_file_path = os.path.join(data_dir,
-                                     "step3\\traindf_with_feature_engg.parquet"
-                                     )
+# data_dir = os.path.join(current_path, 'files')
+# train_fengg_file_path = os.path.join(data_dir,
+#                                     "step3\\traindf_with_feature_engg.parquet"
+#                                    )
+train_fengg_file_path = os.getenv('step3_file_path')
+model_file_path = os.getenv('step5_file_path')
 traindf_with_feature_engg = pd.read_parquet(train_fengg_file_path)
 print(traindf_with_feature_engg.head())
 
@@ -30,5 +37,5 @@ Xval, Yval = split_into_XnY(validationdf, 'Y')
 Xtrain_tenfeat = Xtrain[config['TEN_BEST_FEATURES_OBSERVED_SELECTION']]
 Xval_tenfeat = Xval[config['TEN_BEST_FEATURES_OBSERVED_SELECTION']]
 model = model_logit_sklearn(Xtrain_tenfeat, Ytrain, Xval_tenfeat, Yval)
-model_file_path = os.path.join(data_dir, "step5\\model.joblib")
+# model_file_path = os.path.join(data_dir, "step5\\model.joblib")
 dump(model, model_file_path)
