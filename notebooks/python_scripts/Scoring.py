@@ -6,10 +6,7 @@
 
 import pandas as pd
 import os
-import pickle
-from joblib import dump, load
-from sklearn.metrics import accuracy_score
-
+from joblib import load
 
 # In[18]:
 

@@ -1,0 +1,17 @@
+name: MLFlow_Pipeline_Example
+
+conda_env: '.\environment_variables\conda.yml'
+
+entry_points:
+  cleaning:
+    command: "python -m src.cleaning"
+  feature_engg:
+    command: "python -m src.feature_engg"
+  feature_selection:
+    command: "python -m src.feature_selection"
+  modelling:
+    command: "python -m src.modelling"
+  scoring:
+    command: "python -m src.scoring"
+  main:
+    command: "python main.py"
