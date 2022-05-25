@@ -4,4 +4,3 @@ in-vehicle-coupon-recommendation.csv
 files/
 *.pyc
 */build/
-.env
