@@ -20,9 +20,9 @@ print(traindf_with_feature_engg.head())
 
 traindf_with_feature_engg.drop(config['DROP_COL_LIST_WITH_ONE_CLASS'],
                                axis=1, inplace=True)
-fraction_train = 0.7
+
 traindf, validationdf = test_train_split(traindf_with_feature_engg,
-                                         fraction_train)
+                                         config['FRACTION_TRAIN'])
 Xtrain, Ytrain = split_into_XnY(traindf, 'Y')
 Xval, Yval = split_into_XnY(validationdf, 'Y')
 Xtrain_tenfeat = Xtrain[config['TEN_BEST_FEATURES_OBSERVED_SELECTION']]

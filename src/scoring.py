@@ -22,9 +22,9 @@ testdf = Fill_missing_Val_Columns(testdf,
                                   config['MISSING_VAL_COLUMNS_TO_FILL'])
 testdf = Drop_Missing_Val_Columns(testdf, config['MISSING_VAL_COLUMNS'])
 
-testdf = replace_values_using_dict(testdf, config['dict_for_clubbing'])
+testdf = replace_values_using_dict(testdf, config['DICT_FOR_CLUBBING'])
 testdf = replace_values_using_dict(testdf,
-                                   config['dict_to_get_ordinal_features'])
+                                   config['DICT_TO_GET_ORDINAL_FEATURES'])
 result_df = predictions(testdf, 'Y',
                         config['TEN_BEST_FEATURES_OBSERVED_SELECTION'],
                         e.model_file_path)
