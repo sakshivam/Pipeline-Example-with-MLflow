@@ -16,9 +16,9 @@ traindf_cleaned = pd.read_parquet(e.train_cleaned_file_path)
 print(traindf_cleaned.head())
 
 traindf_cleaned = replace_values_using_dict(traindf_cleaned,
-                                            config['dict_for_clubbing'])
+                                            config['DICT_FOR_CLUBBING'])
 traindf_cleaned = replace_values_using_dict(traindf_cleaned,
-                                            config['dict_to_get_ordinal_features'])
+                                            config['DICT_TO_GET_ORDINAL_FEATURES'])
 traindf_with_feature_engg = traindf_cleaned
 traindf_with_feature_engg.to_parquet(e._train_fengg_file_path,
                                      index=False)
