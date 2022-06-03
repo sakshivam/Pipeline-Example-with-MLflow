@@ -88,5 +88,7 @@ DROP_COL_LIST_WITH_ONE_CLASS : ['toCoupon_GEQ5min']
 
 FRACTION_TRAIN : 0.7
 
+N_TRIALS : 15
+
 TEN_BEST_FEATURES_OBSERVED_SELECTION : ['passanger', 'coupon','CoffeeHouse', 'destination', 'expiration', 'toCoupon_GEQ25min',
                                         'Bar', 'gender', 'Restaurant20To50','temperature' ]

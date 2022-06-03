@@ -1,4 +1,5 @@
 import numpy as np
+import optuna
 import statsmodels.api as sm
 from sklearn.linear_model import LogisticRegression
 from imblearn.over_sampling import SMOTE
@@ -95,7 +96,97 @@ def statsmodel_logit(xtrain, ytrain, xvalidation, yvalidation):
     return logit_model
 
 
-def model_logit_sklearn(xtrain, ytrain, xvalidation, yvalidation):
+def objective(trial, xtrain, ytrain, xvalidation, yvalidation):
+    """This function is used to build objective for optuna trial
+    for performing hyperparameter tuning for sklearn logistic
+    regression.
+
+    param xtrain: train dataset without dependent column in the form
+    of dataframe
+
+    type xtrain: pandas dataframe
+
+    param ytrain: dependent column of dataframe i.e output
+
+    type ytrain: pandas dataframe
+
+    param xvalidation: validation dataset without dependent column in the form
+    of dataframe
+
+    type xvalidation: pandas dataframe
+
+    param yvalidation: dependent column of validation dataset i.e output
+
+    type yvalidation: pandas dataframe
+
+    return: classifier.score on validation data
+    rtype: float
+    """
+
+    penalty = trial.suggest_categorical("penalty", ["l1", "l2"])
+    tol = trial.suggest_float("tol", 0.0001, 0.01, log=True)
+    C = trial.suggest_float("C", 1.0, 10.0, log=True)
+    intercept = trial.suggest_categorical("fit_intercept", [True, False])
+    solver = trial.suggest_categorical("solver", ["liblinear", "saga"])
+
+    # Create Model
+    classifier = LogisticRegression(penalty=penalty,
+                                    tol=tol,
+                                    C=C,
+                                    fit_intercept=intercept,
+                                    solver=solver,
+                                    multi_class="auto",
+                                    )
+    # Fit Model
+    classifier.fit(xtrain, ytrain)
+
+    return classifier.score(xvalidation, yvalidation)
+
+def optuna_max_acc_logit_sklearn(ntrials, xtrain, ytrain,
+                                 xvalidation, yvalidation):
+    """This function is used to return best parameters after
+    performing hyperparameter tuning for sklearn logistic
+    regression.
+
+    param ntrials: number of trials for optuna optimization
+
+    type ntrials: int
+
+    param xtrain: train dataset without dependent column in the form
+     of dataframe
+
+    type xtrain: pandas dataframe
+
+    param ytrain: dependent column of dataframe i.e output
+
+    type ytrain: pandas dataframe
+
+    param xvalidation: validation dataset without dependent column in the form
+     of dataframe
+
+    type xvalidation: pandas dataframe
+
+    param yvalidation: dependent column of validation dataset i.e output
+
+    type yvalidation: pandas dataframe
+
+    return: best params
+    rtype: dictionary
+    """
+    # Wrap the objective inside a lambda and call objective inside it
+    func = lambda trial: objective(trial, xtrain, ytrain,
+                                   xvalidation, yvalidation)
+    # %%time
+    study1 = optuna.create_study(study_name="LogisticRegression",
+                                 direction="maximize")
+    study1.optimize(func, n_trials=ntrials)
+    print("\nBest Accuracy : {}".format(study1.best_value))
+    print("Best Params : {}".format(study1.best_params))
+    return study1.best_params
+
+
+def model_logit_sklearn(xtrain, ytrain, xvalidation, yvalidation,
+                        **best_params):
     """This function is used to build model using sklearn logit model for the
      given xtrain, ytrain
 
@@ -122,7 +213,7 @@ def model_logit_sklearn(xtrain, ytrain, xvalidation, yvalidation):
     rtype: pickle
     """
 
-    logreg = LogisticRegression().fit(xtrain, ytrain)
+    logreg = LogisticRegression(**best_params).fit(xtrain, ytrain)
     y_pred = logreg.predict(xvalidation)
     print(accuracy_score(yvalidation, y_pred))
     return logreg

@@ -3,7 +3,8 @@ from joblib import dump
 import yaml
 from src.utils.modelling_utils import (test_train_split,
                                        split_into_XnY,
-                                       model_logit_sklearn)
+                                       model_logit_sklearn,
+                                       optuna_max_acc_logit_sklearn)
 from ml_service.utils.env_variables import Env
 
 e = Env()
@@ -27,5 +28,9 @@ Xtrain, Ytrain = split_into_XnY(traindf, 'Y')
 Xval, Yval = split_into_XnY(validationdf, 'Y')
 Xtrain_tenfeat = Xtrain[config['TEN_BEST_FEATURES_OBSERVED_SELECTION']]
 Xval_tenfeat = Xval[config['TEN_BEST_FEATURES_OBSERVED_SELECTION']]
-model = model_logit_sklearn(Xtrain_tenfeat, Ytrain, Xval_tenfeat, Yval)
+
+best_params = optuna_max_acc_logit_sklearn(config['N_TRIALS'],
+                                           Xtrain_tenfeat, Ytrain,
+                                           Xval_tenfeat, Yval)
+model = model_logit_sklearn(Xtrain_tenfeat, Ytrain, Xval_tenfeat, Yval, **best_params)
 dump(model, e.model_file_path)
